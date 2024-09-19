@@ -22,7 +22,6 @@ int main(int argc, char *argv[])
         printf("%llu\n", fib_i(N));
     } else if (second_arg == 'r') {
         printf("%llu\n", fib_r(N));
-
     }
 
     return 0;
