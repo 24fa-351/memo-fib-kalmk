@@ -7,28 +7,35 @@ unsigned long long fib_r_core(int index);
 unsigned long long fib_i(int index);
 unsigned long long fib_r(int index);
 
-int main(int argc, char *argv[])
-{
+typedef unsigned long long (*FibFuncPtr)(int index);
+
+int main(int argc, char *argv[]) {
+    // get index for fib
     int first_arg = atoi(argv[1]);
 
+    // fib method
     char *temp = malloc(sizeof(argv[2]));
     strcpy(temp, argv[2]);
     char second_arg = temp[0];
     free(temp);
-    
+
+    // change name to N
     int N = first_arg;
-    
+
+    FibFuncPtr fib_ptr;
+
     if (second_arg == 'i') {
-        printf("%llu\n", fib_i(N));
+        fib_ptr = fib_i;
+        printf("%llu\n", fib_ptr(N));
     } else if (second_arg == 'r') {
-        printf("%llu\n", fib_r(N));
+        fib_ptr = fib_r;
+        printf("%llu\n", fib_ptr(N));
     }
 
     return 0;
 }
 
-unsigned long long fib_i_core(int index)
-{
+unsigned long long fib_i_core(int index) {
     if (index == 1) {
         return 0;
     }
@@ -43,8 +50,7 @@ unsigned long long fib_i_core(int index)
     unsigned long long t2 = 1;
     unsigned long long next_term = t1 + t2;
 
-    for (int ix = 3; ix <= index; ++ix)
-    {
+    for (int ix = 3; ix <= index; ++ix) {
         t1 = t2;
         t2 = next_term;
         next_term = t1 + t2;
@@ -53,8 +59,7 @@ unsigned long long fib_i_core(int index)
     return next_term;
 }
 
-unsigned long long fib_r_core(int index)
-{
+unsigned long long fib_r_core(int index) {
     if (index == 1) {
         return 0;
     }
@@ -64,29 +69,27 @@ unsigned long long fib_r_core(int index)
     }
 
     return fib_r(index - 1) + fib_r(index - 2);
-} 
+}
 
-unsigned long long fib_i(int index)
-{
+unsigned long long fib_i(int index) {
     static unsigned long long memo[1000] = {0};
 
     if (memo[index] != 0) {
         return memo[index];
     }
-    
+
     memo[index] = fib_i_core(index);
 
     return memo[index];
 }
 
-unsigned long long fib_r(int index)
-{
+unsigned long long fib_r(int index) {
     static unsigned long long memo[1000] = {0};
 
     if (memo[index] != 0) {
         return memo[index];
     }
-    
+
     memo[index] = fib_r_core(index);
 
     return memo[index];
