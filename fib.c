@@ -10,26 +10,17 @@ unsigned long long fib_r(int index);
 typedef unsigned long long (*FibFuncPtr)(int index);
 
 int main(int argc, char *argv[]) {
-    // get index for fib
-    int first_arg = atoi(argv[1]);
-
-    // fib method
-    char *temp = malloc(sizeof(argv[2]));
-    strcpy(temp, argv[2]);
-    char second_arg = temp[0];
-    free(temp);
-
-    // change name to N
-    int N = first_arg;
+    int index = atoi(argv[1]);
+    char fib_method = argv[2][0];
 
     FibFuncPtr fib_ptr;
 
-    if (second_arg == 'i') {
+    if (fib_method == 'i') {
         fib_ptr = fib_i;
-        printf("%llu\n", fib_ptr(N));
-    } else if (second_arg == 'r') {
+        printf("%llu\n", fib_ptr(index));
+    } else if (fib_method == 'r') {
         fib_ptr = fib_r;
-        printf("%llu\n", fib_ptr(N));
+        printf("%llu\n", fib_ptr(index));
     }
 
     return 0;
