@@ -41,14 +41,14 @@ unsigned long long fib_i_core(int index) {
 
     --index;
 
-    unsigned long long t1 = 0;
-    unsigned long long t2 = 1;
-    unsigned long long next_term = t1 + t2;
+    unsigned long long prev_1 = 0;
+    unsigned long long prev_2 = 1;
+    unsigned long long next_term = prev_1 + prev_2;
 
     for (int ix = 3; ix <= index; ++ix) {
-        t1 = t2;
-        t2 = next_term;
-        next_term = t1 + t2;
+        prev_1 = prev_2;
+        prev_2 = next_term;
+        next_term = prev_1 + prev_2;
     }
 
     return next_term;
